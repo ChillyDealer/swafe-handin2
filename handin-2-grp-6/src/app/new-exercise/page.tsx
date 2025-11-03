@@ -1,19 +1,17 @@
 import { Flex, Heading, TextField } from "@radix-ui/themes";
+import { PageComponent } from "../_components/page-component";
 
 export default function NewExercise() {
   return (
-    <Flex
-      direction="column"
-      align="center"
-      justify="center"
-      className="h-full"
-    >
-      <Heading className=" w-full flex justify-center p-4" size="8">
-        Create a New Exercise
-      </Heading>
-      <TextField.Root className="w-1/3">
-        <TextField.Slot>Exercise name</TextField.Slot>
-      </TextField.Root>
-    </Flex>
+    <PageComponent>
+      <div className="flex flex-col items-center justify-center">
+        <Heading className="p-4" size="8">
+          Create a New Exercise
+        </Heading>
+        <TextField.Root className="w-1/3">
+          <TextField.Slot>Exercise name</TextField.Slot>
+        </TextField.Root>
+      </div>
+    </PageComponent>
   );
 }
