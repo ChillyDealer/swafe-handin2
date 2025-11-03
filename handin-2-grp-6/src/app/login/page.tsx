@@ -3,7 +3,7 @@ import {Lock, User} from "lucide-react";
 import {PageComponent} from "@/app/_components/page-component";
 
 export default function LoginPage() {
-    return <PageComponent className="justify-center items-center">
+    return <PageComponent className="flex-col justify-center items-center">
         <Text>hej</Text>
         <Flex direction="column" className="gap-4 bg-red-400 w-80">
             <TextField.Root placeholder="E-mail">
