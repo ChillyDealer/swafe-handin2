@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "Fitness App",
+    title: "Sigma Fitness",
     description: "sigma fitness",
 };
 
