@@ -33,12 +33,12 @@ export function useAuth() {
         }
     };
 
-    const quickLogin = (userEmail: string, userPassword: string) => {
+    const quickLogin = (userEmail: string, userPassword: string) => { // fjern det her senere
         setEmail(userEmail);
         setPassword(userPassword);
     };
 
-    const checkExistingAuth = () => {
+    const checkExistingAuth = () => { // redirect if log in
         const token = AuthService.getToken();
         if (token) {
             const returnUrl = searchParams.get("returnUrl") || "/";
@@ -48,7 +48,7 @@ export function useAuth() {
         return false;
     };
 
-    return {
+    return { 
         email,
         password,
         error,
