@@ -1,10 +1,11 @@
-import { ApiBaseUrl } from "@/app/_data/api-base";
-import type { LoginRequest, LoginResponse } from "@/app/types/auth";
+import type {LoginRequest, LoginResponse} from "@/app/_types/auth";
+import {ApiBaseUrl} from "@/app/_consts/api-consts";
+import Cookies from 'js-cookie';
+import {redirect} from "next/navigation";
 
 export class AuthService {
     private static readonly TOKEN_KEY = "jwt";
     private static readonly LOGIN_ENDPOINT = `${ApiBaseUrl}Users/login`;
-    private static readonly USERS_ENDPOINT = `${ApiBaseUrl}Users`;
 
     static async login(credentials: LoginRequest): Promise<LoginResponse> {
         const response = await fetch(this.LOGIN_ENDPOINT, {
@@ -25,29 +26,20 @@ export class AuthService {
     }
 
     static saveToken(token: string): void {
-        localStorage.setItem(this.TOKEN_KEY, token);
+        Cookies.set(this.TOKEN_KEY, token, {sameSite: "lax"});
     }
 
-    static getToken(): string | null {
-        return localStorage.getItem(this.TOKEN_KEY);
+    static getToken(): string | undefined {
+        return Cookies.get(this.TOKEN_KEY);
     }
 
     static logout(): void {
-        localStorage.removeItem(this.TOKEN_KEY);
+        Cookies.remove(this.TOKEN_KEY);
     }
 
-    static async fetchUsers(token: string): Promise<unknown> {
-        const response = await fetch(this.USERS_ENDPOINT, {
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Accept": "application/json",
-            }
-        });
+    static requireAuth() {
+        if (AuthService.getToken()) return;
 
-        if (!response.ok) {
-            throw new Error("error");
-        }
-
-        return response.json();
+        redirect("/login");
     }
 }

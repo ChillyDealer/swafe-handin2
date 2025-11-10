@@ -1,0 +1,1 @@
+﻿export const ApiBaseUrl = "https://assignment2.swafe.dk/api/";

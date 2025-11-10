@@ -5,9 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d2ba8370-2d7f-4f3c-84f4-642c44dbcd85" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.prettierrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(protected)/layout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/_consts/api-consts.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/_components/page-component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/_components/page-component.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/login/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/_components/navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/_components/navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/_data/api-base.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/_data/api-base.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/_data/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/_data/users.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/hooks/login.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/hooks/login.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/types/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/_types/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/types/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/_types/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/users/_components/user-row.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/users/_components/users-table.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/users/page.tsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +31,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
       </list>
     </option>
@@ -43,18 +58,18 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feat/login",
+    "git-widget-placeholder": "feat/users-page",
     "ignore.virus.scanning.warn.message": "true",
     "js.debugger.nextJs.config.created.client": "true",
     "js.debugger.nextJs.config.created.server": "true",
-    "last_opened_file_path": "C:/Libraries/Code/swafe-handin2/handin-2-grp-6/src/app/_components",
+    "last_opened_file_path": "C:/Libraries/Code/swafe-handin2/handin-2-grp-6",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "npm.Next.js: server-side.executor": "Debug",
-    "settings.editor.selected.configurable": "settings.sync",
+    "npm.Next.js: server-side.executor": "Run",
+    "settings.editor.selected.configurable": "settings.javascript.prettier",
     "ts.external.directory.path": "C:\\Libraries\\Code\\swafe-handin2\\handin-2-grp-6\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -67,6 +82,11 @@
         <entry key="com.intellij.reactbuddy.storybook" value="false" />
       </map>
     </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Libraries\Code\swafe-handin2\handin-2-grp-6\src\app\(protected)" />
+    </key>
   </component>
   <component name="RunManager" selected="npm.Next.js: server-side">
     <configuration name="Next.js: debug client-side" type="JavascriptDebugType" uri="http://localhost:3000/">
@@ -101,6 +121,8 @@
       <workItem from="1762170578378" duration="3034000" />
       <workItem from="1762180920451" duration="632000" />
       <workItem from="1762181589608" duration="1892000" />
+      <workItem from="1762778354743" duration="3781000" />
+      <workItem from="1762783275749" duration="1998000" />
     </task>
     <servers />
   </component>
