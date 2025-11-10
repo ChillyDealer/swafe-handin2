@@ -18,7 +18,7 @@ export class AuthService {
 
         if (!response.ok) {
             const errorText = await response.text();
-            throw new Error(errorText || "Invalid email or password");
+            throw new Error(errorText || "wrong pswd or mail lol");
         }
 
         return response.json();
@@ -45,7 +45,7 @@ export class AuthService {
         });
 
         if (!response.ok) {
-            throw new Error("Failed to fetch users");
+            throw new Error("error");
         }
 
         return response.json();
