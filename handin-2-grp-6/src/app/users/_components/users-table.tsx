@@ -6,18 +6,20 @@ export const UsersTable = () => {
     return <ScrollArea scrollbars="vertical">
         <Table.Root>
             <Table.Header>
-                <Table.ColumnHeaderCell>
-                    Name
-                </Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>
-                    E-mail
-                </Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>
-                    Personal trainer
-                </Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>
-                    Account type
-                </Table.ColumnHeaderCell>
+                <Table.Row>
+                    <Table.ColumnHeaderCell>
+                        Name
+                    </Table.ColumnHeaderCell>
+                    <Table.ColumnHeaderCell>
+                        E-mail
+                    </Table.ColumnHeaderCell>
+                    <Table.ColumnHeaderCell>
+                        Personal trainer
+                    </Table.ColumnHeaderCell>
+                    <Table.ColumnHeaderCell>
+                        Account type
+                    </Table.ColumnHeaderCell>
+                </Table.Row>
             </Table.Header>
             <Table.Body>
                 
