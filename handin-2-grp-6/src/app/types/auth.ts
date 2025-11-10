@@ -6,9 +6,3 @@ export interface LoginRequest {
 export interface LoginResponse {
     jwt: string;
 }
-
-export interface AuthError {
-    message: string;
-    status?: number;
-    details?: unknown;
-}
