@@ -1,5 +1,5 @@
 ﻿import {Table, Text} from "@radix-ui/themes";
-import {User} from "@/app/_types/user";
+import {User} from "@/app/types/user";
 import {FC} from "react";
 
 interface Props {
