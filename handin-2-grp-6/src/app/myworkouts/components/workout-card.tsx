@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import type { WorkoutProgram } from "../types";
 import { WorkoutModal } from "./workout-modal";
 
@@ -8,9 +8,17 @@ interface Props {
     workout: WorkoutProgram;
 }
 
+const FITNESS_EMOJIS = ['💪', '🏋️', '🤸', '🏃', '🚴', '🧘', '⚡', '🔥', '🎯', '⭐'];
+
 export function WorkoutCard({ workout }: Props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const exerciseCount = workout.exercises?.length || 0;
+    
+    // Use workout ID as seed for consistent random emoji per card
+    const emoji = useMemo(() => {
+        const index = workout.workoutProgramId % FITNESS_EMOJIS.length;
+        return FITNESS_EMOJIS[index];
+    }, [workout.workoutProgramId]);
     
     return (
         <>
@@ -21,10 +29,11 @@ export function WorkoutCard({ workout }: Props) {
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-[#53659a]/0 to-[#6b9b4c]/0 group-hover:from-[#53659a]/10 group-hover:to-[#6b9b4c]/10 transition-all duration-300"></div>
             
-            {/* Image Placeholder */}
+            {/* Emoji Display */}
             <div className="relative h-48 bg-gradient-to-br from-[#53659a]/20 to-[#2a2a2a] flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTAgMGg0MHY0MEgweiIvPjwvZz48L2c+PC9zdmc+')] opacity-50"></div>
-                <span className="text-7xl group-hover:scale-110 transition-transform duration-300 relative z-10">💪</span>
+                <span className="text-8xl group-hover:scale-110 transition-transform duration-300 relative z-10">
+                    {emoji}
+                </span>
             </div>
             
             {/* Card Content */}
