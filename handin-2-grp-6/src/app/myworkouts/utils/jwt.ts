@@ -18,3 +18,7 @@ export const decodeJwt = (token: string): JwtPayload | null => {
 export const getUserRole = (token: string): string | null => {
     return decodeJwt(token)?.Role || null;
 };
+
+export const getUserName = (token: string): string | null => {
+    return decodeJwt(token)?.Name || null;
+};

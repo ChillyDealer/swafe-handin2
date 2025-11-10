@@ -10,7 +10,7 @@ export const fetchWorkoutPrograms = async (token: string): Promise<WorkoutProgra
     });
 
     if (!response.ok) {
-        throw new Error("Failed to fetch workout programs");
+        throw new Error("no fetch for workouts");
     }
 
     return response.json();

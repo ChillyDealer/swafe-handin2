@@ -33,7 +33,6 @@ export function WorkoutModal({ workout, isOpen, onClose }: Props) {
                 className="bg-gradient-to-br from-gray-900 to-black border border-gray-700 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
             >
-                {/* Header */}
                 <div className="bg-gradient-to-r from-[#53659a] to-[#5a6fa8] p-6 sticky top-0 z-10">
                     <div className="flex items-start justify-between">
                         <div className="flex-1">
@@ -58,7 +57,6 @@ export function WorkoutModal({ workout, isOpen, onClose }: Props) {
                     </div>
                 </div>
 
-                {/* Exercises List */}
                 <div className="overflow-y-auto max-h-[calc(90vh-140px)] p-6">
                     <div className="space-y-4">
                         {workout.exercises.map((exercise, index) => (
@@ -75,12 +73,10 @@ function ExerciseCard({ exercise, index }: { exercise: Exercise; index: number }
     return (
         <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-xl p-5 border border-gray-700/30 hover:border-[#6b9b4c]/30 transition-all">
             <div className="flex items-start gap-4">
-                {/* Exercise Number */}
                 <div className="flex-shrink-0 w-10 h-10 bg-[#6b9b4c] rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-lg">{index + 1}</span>
                 </div>
 
-                {/* Exercise Details */}
                 <div className="flex-1">
                     <h3 className="text-xl font-bold text-white mb-2">
                         {exercise.name}
@@ -89,7 +85,6 @@ function ExerciseCard({ exercise, index }: { exercise: Exercise; index: number }
                         {exercise.description}
                     </p>
 
-                    {/* Exercise Stats */}
                     <div className="flex flex-wrap gap-2">
                         {exercise.sets !== null && exercise.sets > 0 && (
                             <div className="bg-[#53659a]/20 text-[#53659a] px-3 py-1.5 rounded-lg border border-[#53659a]/30 text-sm">

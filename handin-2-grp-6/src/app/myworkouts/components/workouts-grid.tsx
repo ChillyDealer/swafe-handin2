@@ -52,7 +52,7 @@ export function WorkoutsGrid() {
     if (workouts.length === 0) {
         return (
             <div className="flex justify-center items-center h-64">
-                <div className="text-gray-400 text-xl">No workout programs assigned yet</div>
+                <div className="text-gray-400 text-xl">No workouts found...</div>
             </div>
         );
     }
