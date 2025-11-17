@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d2ba8370-2d7f-4f3c-84f4-642c44dbcd85" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/app/(protected)/users/create/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(protected)/users/_components/users-table.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(protected)/users/_components/users-table.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/_components/navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/_components/navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/_data/api-base.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/_data/api-base.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/_data/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/_data/users-api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(protected)/users/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(protected)/users/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

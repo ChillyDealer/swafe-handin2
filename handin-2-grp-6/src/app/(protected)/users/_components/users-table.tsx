@@ -3,7 +3,6 @@ import {getUsers} from "@/app/_data/users-api";
 import type {User} from "@/app/_types/user";
 
 export async function UsersTable() {
-    // Fetch data directly in the component (no useState, no useEffect)
     let users: User[] = [];
     let error: string | null = null;
 
@@ -14,7 +13,6 @@ export async function UsersTable() {
         error = err instanceof Error ? err.message : 'Failed to fetch users';
     }
 
-    // Handle error state
     if (error) {
         return (
             <div className="p-8 text-center text-red-600">
@@ -23,7 +21,6 @@ export async function UsersTable() {
         );
     }
 
-    // Handle empty state
     if (users.length === 0) {
         return (
             <div className="p-8 text-center text-gray-500">
