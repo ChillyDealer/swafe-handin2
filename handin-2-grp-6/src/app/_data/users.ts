@@ -1,7 +1,7 @@
-﻿import {ApiBaseUrl} from "@/app/_data/api-base";
+﻿import {fetchBase} from "@/app/_data/api-base";
+import {User} from "@/app/_types/user";
 
-const ApiUsersUrl = ApiBaseUrl + "users";
-
-export async function getUsers() {
-    const response = await fetch(ApiUsersUrl, {});
+export async function getUsers(): Promise<User[]> {
+    const response = await fetchBase("users");
+    return response.json();
 }
