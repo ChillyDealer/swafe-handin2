@@ -2,7 +2,7 @@ import { fetchBase } from './api-base';
 import { Exercise } from '../myworkouts/types';
 
 export async function postExercise(exercise: Exercise) {
-  const response = await fetchBase('exercises', {
+  const response = await fetchBase('Exercises', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

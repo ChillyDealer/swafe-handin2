@@ -31,7 +31,8 @@ export default function NewExercisePage(workoutProgramId: number) {
 
   return (
     <PageComponent className='flex flex-col items-center justify-center'>
-      <NewExercisePopup workoutProgramId={0} />
+      <NewExercisePopup workoutProgramId={19} personalTrainerId={36} />
+      {/* 19 og 36 er bare for det der workout program der er i backenden i forvejen */}
     </PageComponent>
   );
 }

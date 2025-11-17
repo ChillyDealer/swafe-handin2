@@ -3,11 +3,14 @@ import { Dumbbell, FileText, Hash, Clock } from 'lucide-react';
 import { PageComponent } from '../_components/page-component';
 import { useState } from 'react';
 import { Exercise } from '../myworkouts/types';
+import { postExercise } from '../_data/exercises-api';
 
 export default function NewExercisePopup({
   workoutProgramId,
+  personalTrainerId,
 }: {
   workoutProgramId: number;
+  personalTrainerId: number;
 }) {
   const [usingSets, setUsingSets] = useState<boolean>(true);
   const [exerciseName, setExerciseName] = useState('');
@@ -19,17 +22,19 @@ export default function NewExercisePopup({
     e.preventDefault();
     // Handle form submission
     const newExercise: Exercise = {
-      exerciseId: 0, // This would be set by the backend
-      groupId: '', // Set appropriately
+      exerciseId: 0, // bliver sat i backenden?
+      groupId: '86fd6635-ad7d-463d-a22f-536ed93465ff', // idk det var den fra backenden
       name: exerciseName,
       description: description,
       sets: usingSets ? parseInt(setsOrDuration) : null,
       repetitions: parseInt(reps),
       time: usingSets ? '' : `${setsOrDuration} mins`,
-      workoutProgramId: 0, // Set appropriately
-      personalTrainerId: 0, // Set appropriately
+      workoutProgramId: workoutProgramId,
+      personalTrainerId: personalTrainerId,
     };
-    console.log({ exerciseName, description, reps, setsOrDuration, usingSets });
+    console.log('posting exercise: ', newExercise);
+    postExercise(newExercise);
+    // console.log({ exerciseName, description, reps, setsOrDuration, usingSets });
   };
 
   return (
