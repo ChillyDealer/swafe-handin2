@@ -1,78 +1,41 @@
 import type {LoginRequest, LoginResponse} from "@/app/_types/auth";
-import {ApiBaseUrl} from "@/app/_consts/api-consts";
-import {redirect} from "next/navigation";
-import {cookies} from 'next/headers';
-import type { User } from "@/app/types/user";
-import { decodeJwt } from "@/app/myworkouts/utils/jwt";
-import {ReadonlyRequestCookies} from "next/dist/server/web/spec-extension/adapters/request-cookies";
+import type { User } from "@/app/_types/user";
+import { loginAction, logoutAction, getTokenAction, getCurrentUserAction } from "@/app/actions/auth";
 
 export class AuthService {
-    private static readonly TOKEN_KEY = "jwt";
-    private static readonly LOGIN_ENDPOINT = `${ApiBaseUrl}Users/login`;
-    private static CookieStore: ReadonlyRequestCookies | undefined;
-
-    constructor() {
-        cookies().then(store => AuthService.CookieStore = store);
-    }
-
     static async login(credentials: LoginRequest): Promise<LoginResponse> {
-        const response = await fetch(this.LOGIN_ENDPOINT, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-            },
-            body: JSON.stringify(credentials),
-        });
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(errorText || "wrong pswd or mail lol");
-        }
-
-        return response.json();
+        return await loginAction(credentials);
     }
 
-    static saveToken(token: string): void {
-        AuthService.CookieStore?.set(this.TOKEN_KEY, token, {sameSite: "lax"});
+    static async logout(): Promise<void> {
+        await logoutAction();
     }
 
-    static getToken(): string | undefined {
-        return AuthService.CookieStore?.get(this.TOKEN_KEY)?.value;
+    static async getToken(): Promise<string | undefined> {
+        return await getTokenAction();
     }
 
-    static logout(): void {
-        AuthService.CookieStore?.delete(this.TOKEN_KEY);
-    }
-
-    static requireAuth() {
-        const token = AuthService.getToken();
-
-        setTimeout(() => {
-            if (token) return;
-
-            redirect("/login");
-        }, 3000);
-        }
-
-        return response.json();
-    }
-
-    static async getCurrentUser(token: string): Promise<User> {
-        const payload = decodeJwt(token);
-        if (!payload) {
-            throw new Error("Invalid token");
-        }
-
-        const response = await fetch(`${this.USERS_ENDPOINT}/${payload.UserId}`, {
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Accept": "application/json",
+    // For client-side synchronous token access (used in navbar, etc)
+    static getTokenSync(): string | undefined {
+        // This is a workaround - check if cookie exists client-side
+        if (typeof document !== 'undefined') {
+            const name = 'jwt=';
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
             }
-        });
+        }
+        return undefined;
+    }
 
-        if (!response.ok) {
-            throw new Error("Failed to fetch user");
-
+    static async getCurrentUser(): Promise<User | null> {
+        return await getCurrentUserAction();
     }
 }

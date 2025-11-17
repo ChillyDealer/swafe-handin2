@@ -19,7 +19,7 @@ export default function MyWorkoutsPage() {
     }, []);
 
     const loadUserData = async () => {
-        const token = AuthService.getToken();
+        const token = AuthService.getTokenSync();
         if (!token) {
             setIsAuthenticated(false);
             setIsLoading(false);
@@ -34,17 +34,19 @@ export default function MyWorkoutsPage() {
         }
 
         setIsAuthenticated(true);
-        
+
         try {
-            const user = await AuthService.getCurrentUser(token);
-            setUserName(`${user.firstName} ${user.lastName}`);
-            setUserId(user.userId.toString());
+            const user = await AuthService.getCurrentUser();
+            if (user) {
+                setUserName(`${user.firstName} ${user.lastName}`);
+                setUserId(user.userId.toString());
+            }
         } catch (error) {
             console.error("Failed to fetch user data:", error);
             setUserName("User");
             setUserId("");
         }
-        
+
         setIsLoading(false);
     };
 

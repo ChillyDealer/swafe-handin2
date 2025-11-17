@@ -13,18 +13,17 @@ export function useAuth() {
 
     const login = async (e?: React.FormEvent) => {
         if (e) e.preventDefault();
-        
+
         setError("");
         setLoading(true);
 
         try {
             const credentials: LoginRequest = { email, password };
-            const response = await AuthService.login(credentials);
-            
-            AuthService.saveToken(response.jwt);
-            
+            await AuthService.login(credentials);
+
             const returnUrl = searchParams.get("returnUrl") || "/";
             router.push(returnUrl);
+            router.refresh(); // server side fis
         } catch (err) {
             const errorMessage = err instanceof Error ? err.message : "Login failed";
             setError(errorMessage);
@@ -39,7 +38,7 @@ export function useAuth() {
     };
 
     const checkExistingAuth = () => { // redirect if log in
-        const token = AuthService.getToken();
+        const token = AuthService.getTokenSync();
         if (token) {
             const returnUrl = searchParams.get("returnUrl") || "/";
             router.push(returnUrl);

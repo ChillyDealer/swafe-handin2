@@ -2,7 +2,7 @@
 import {ApiBaseUrl} from "@/app/_consts/api-consts";
 
 export async function fetchBase(path: string, init?: RequestInit) {
-    const token = AuthService.getToken();
+    const token = AuthService.getTokenSync();
 
     if (!token) {
         throw new Error("🔐 NO TOKEN");

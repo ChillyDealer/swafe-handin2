@@ -15,7 +15,7 @@ export default function Home() {
   }, []);
 
   const checkAuth = () => {
-    const token = AuthService.getToken();
+    const token = AuthService.getTokenSync();
     if (token) {
       const role = getUserRole(token);
       if (role === "Client") {

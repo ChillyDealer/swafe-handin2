@@ -1,4 +1,4 @@
-import { ApiBaseUrl } from "@/app/_data/api-base";
+import { ApiBaseUrl } from "@/app/_consts/api-consts";
 import type { WorkoutProgram } from "./types";
 
 export const fetchWorkoutPrograms = async (token: string): Promise<WorkoutProgram[]> => {
