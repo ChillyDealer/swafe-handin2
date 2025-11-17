@@ -12,6 +12,7 @@ export class AuthService {
     }
 
     static async getToken(): Promise<string | undefined> {
+        if (typeof document !== 'undefined') return AuthService.getTokenSync();
         return await getTokenAction();
     }
 
