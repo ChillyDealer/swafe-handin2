@@ -23,7 +23,10 @@ export const Navbar = () => {
     return (
         <div className="flex flex-col">
             <div className="flex h-14 items-center justify-between p-4 bg-[#53659a]">
-                <p className="text-white">Call me Yadolf Yitler, bitches still wanna fuck</p>
+                <Link href="/" className="flex items-center gap-2">
+                    <img src="/favicon.ico" alt="icon" className="w-6 h-6" />
+                    <p className="text-white font-bold text-lg cursor-pointer">Sigma Fitness</p>
+                </Link>
                 {isLoggedIn ? (
                     <button 
                         onClick={handleLogout}
