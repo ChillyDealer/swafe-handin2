@@ -1,5 +1,7 @@
 import { ApiBaseUrl } from "@/app/_data/api-base";
 import type { LoginRequest, LoginResponse } from "@/app/types/auth";
+import type { User } from "@/app/types/user";
+import { decodeJwt } from "@/app/myworkouts/utils/jwt";
 
 export class AuthService {
     private static readonly TOKEN_KEY = "jwt";
@@ -46,6 +48,26 @@ export class AuthService {
 
         if (!response.ok) {
             throw new Error("error");
+        }
+
+        return response.json();
+    }
+
+    static async getCurrentUser(token: string): Promise<User> {
+        const payload = decodeJwt(token);
+        if (!payload) {
+            throw new Error("Invalid token");
+        }
+
+        const response = await fetch(`${this.USERS_ENDPOINT}/${payload.UserId}`, {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Accept": "application/json",
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch user");
         }
 
         return response.json();
