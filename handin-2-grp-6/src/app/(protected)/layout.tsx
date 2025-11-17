@@ -10,7 +10,7 @@ interface Props {
 export default function ProtectedLayout(props: Props) {
     const {children} = props;
 
-    AuthService.requireAuth();
+    // AuthService.requireAuth();
 
     return (
         <Column>
