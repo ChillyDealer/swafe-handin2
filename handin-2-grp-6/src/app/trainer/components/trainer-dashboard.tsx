@@ -52,7 +52,7 @@ export function TrainerDashboard({ trainerName }: TrainerDashboardProps) {
                             </button>
 
                             <button
-                                onClick={() => router.push('idk')}
+                                onClick={() => router.push('/users')}
                                 className="bg-[#53659a]/30 hover:bg-[#53659a]/50 border border-[#53659a]/50 hover:border-[#53659a] rounded-xl px-6 py-6 transition-all shadow-lg hover:shadow-[#53659a]/30 text-left group"
                             >
                                 <div className="flex items-center gap-4">
@@ -103,7 +103,7 @@ export function TrainerDashboard({ trainerName }: TrainerDashboardProps) {
                         <p className="text-gray-300 mb-6">Mangage excersises for workout</p>
                         <div className="grid grid-cols-1 gap-4">
                             <button
-                                onClick={() => router.push('idk')}
+                                onClick={() => router.push('/new-exercise')}
                                 className="bg-[#6b9b4c]/30 hover:bg-[#6b9b4c]/50 border border-[#6b9b4c]/50 hover:border-[#6b9b4c] rounded-xl px-6 py-6 transition-all shadow-lg hover:shadow-[#6b9b4c]/30 text-left group"
                             >
                                 <div className="flex items-center gap-4">
