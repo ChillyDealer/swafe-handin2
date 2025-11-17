@@ -2,6 +2,8 @@ import type {LoginRequest, LoginResponse} from "@/app/_types/auth";
 import {ApiBaseUrl} from "@/app/_consts/api-consts";
 import {redirect} from "next/navigation";
 import {cookies} from 'next/headers';
+import type { User } from "@/app/types/user";
+import { decodeJwt } from "@/app/myworkouts/utils/jwt";
 import {ReadonlyRequestCookies} from "next/dist/server/web/spec-extension/adapters/request-cookies";
 
 export class AuthService {
@@ -51,6 +53,26 @@ export class AuthService {
 
             redirect("/login");
         }, 3000);
+        }
+
+        return response.json();
+    }
+
+    static async getCurrentUser(token: string): Promise<User> {
+        const payload = decodeJwt(token);
+        if (!payload) {
+            throw new Error("Invalid token");
+        }
+
+        const response = await fetch(`${this.USERS_ENDPOINT}/${payload.UserId}`, {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Accept": "application/json",
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch user");
 
     }
 }
