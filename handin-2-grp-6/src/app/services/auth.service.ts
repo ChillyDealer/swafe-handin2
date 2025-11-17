@@ -38,8 +38,13 @@ export class AuthService {
     }
 
     static requireAuth() {
-        if (AuthService.getToken()) return;
+        const token = AuthService.getToken();
 
-        redirect("/login");
+        setTimeout(() => {
+            if (token) return;
+
+            redirect("/login");
+        }, 3000);
+
     }
 }

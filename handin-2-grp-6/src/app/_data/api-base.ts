@@ -5,7 +5,7 @@ export async function fetchBase(path: string, init?: RequestInit) {
     const token = AuthService.getToken();
 
     if (!token) {
-        throw new Error("🔐 NO TOKEN YOU BIG NEGRO");
+        throw new Error("🔐 NO TOKEN");
     }
 
     const baseInit: RequestInit = {
