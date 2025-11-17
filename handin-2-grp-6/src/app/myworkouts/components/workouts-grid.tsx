@@ -16,7 +16,7 @@ export function WorkoutsGrid() {
     }, []);
 
     const loadWorkouts = async () => {
-        const token = AuthService.getToken();
+        const token = AuthService.getTokenSync();
         if (!token) {
             setError("Not authenticated");
             setLoading(false);
@@ -28,6 +28,7 @@ export function WorkoutsGrid() {
             setWorkouts(data);
         } catch (err) {
             setError("Failed to load workouts");
+            console.error("Error loading workouts:", err);
         } finally {
             setLoading(false);
         }
