@@ -5,7 +5,7 @@ export function middleware(request: NextRequest) {
     const token = request.cookies.get('jwt')?.value;
     const { pathname } = request.nextUrl;
 
-    const protectedRoutes = ['/users', '/myworkouts'];
+    const protectedRoutes = ['/users', '/myworkouts', '/trainer'];
     const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
 
     if (isProtectedRoute && !token) {
