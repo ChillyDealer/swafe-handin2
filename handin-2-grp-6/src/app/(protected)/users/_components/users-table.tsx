@@ -1,7 +1,8 @@
 ﻿import {ScrollArea, Table} from "@radix-ui/themes"
+import {getUsers} from "@/app/_data/users";
 
-export const UsersTable = () => {
-    const users = fetch
+export const UsersTable = async () => {
+    const users = await getUsers();
     
     return <ScrollArea scrollbars="vertical">
         <Table.Root>
@@ -22,7 +23,7 @@ export const UsersTable = () => {
                 </Table.Row>
             </Table.Header>
             <Table.Body>
-                
+                {users.map(u => <p>{u.userId}</p>)}
             </Table.Body>
         </Table.Root>
     </ScrollArea>

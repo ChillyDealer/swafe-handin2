@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AuthService } from "@/app/services/auth.service";
-import type { LoginRequest } from "@/app/types/auth";
+import type { LoginRequest } from "@/app/_types/auth";
 
 export function useAuth() {
     const [email, setEmail] = useState("");

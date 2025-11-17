@@ -1,12 +1,19 @@
-import { ApiBaseUrl } from "@/app/_data/api-base";
-import type { LoginRequest, LoginResponse } from "@/app/types/auth";
+import type {LoginRequest, LoginResponse} from "@/app/_types/auth";
+import {ApiBaseUrl} from "@/app/_consts/api-consts";
+import {redirect} from "next/navigation";
+import {cookies} from 'next/headers';
 import type { User } from "@/app/types/user";
 import { decodeJwt } from "@/app/myworkouts/utils/jwt";
+import {ReadonlyRequestCookies} from "next/dist/server/web/spec-extension/adapters/request-cookies";
 
 export class AuthService {
     private static readonly TOKEN_KEY = "jwt";
     private static readonly LOGIN_ENDPOINT = `${ApiBaseUrl}Users/login`;
-    private static readonly USERS_ENDPOINT = `${ApiBaseUrl}Users`;
+    private static CookieStore: ReadonlyRequestCookies | undefined;
+
+    constructor() {
+        cookies().then(store => AuthService.CookieStore = store);
+    }
 
     static async login(credentials: LoginRequest): Promise<LoginResponse> {
         const response = await fetch(this.LOGIN_ENDPOINT, {
@@ -27,27 +34,25 @@ export class AuthService {
     }
 
     static saveToken(token: string): void {
-        localStorage.setItem(this.TOKEN_KEY, token);
+        AuthService.CookieStore?.set(this.TOKEN_KEY, token, {sameSite: "lax"});
     }
 
-    static getToken(): string | null {
-        return localStorage.getItem(this.TOKEN_KEY);
+    static getToken(): string | undefined {
+        return AuthService.CookieStore?.get(this.TOKEN_KEY)?.value;
     }
 
     static logout(): void {
-        localStorage.removeItem(this.TOKEN_KEY);
+        AuthService.CookieStore?.delete(this.TOKEN_KEY);
     }
 
-    static async fetchUsers(token: string): Promise<unknown> {
-        const response = await fetch(this.USERS_ENDPOINT, {
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Accept": "application/json",
-            }
-        });
+    static requireAuth() {
+        const token = AuthService.getToken();
 
-        if (!response.ok) {
-            throw new Error("error");
+        setTimeout(() => {
+            if (token) return;
+
+            redirect("/login");
+        }, 3000);
         }
 
         return response.json();
@@ -68,8 +73,6 @@ export class AuthService {
 
         if (!response.ok) {
             throw new Error("Failed to fetch user");
-        }
 
-        return response.json();
     }
 }
