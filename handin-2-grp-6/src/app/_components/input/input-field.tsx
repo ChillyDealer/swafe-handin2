@@ -1,33 +1,33 @@
-﻿import { TextField } from '@radix-ui/themes';
-import { FileText } from 'lucide-react';
-import { FC, ReactNode } from 'react';
+﻿import { Text, TextField } from '@radix-ui/themes';
+import { ChangeEvent, FC, ReactNode, useCallback } from 'react';
+import { Column } from '@/app/_components/column';
 
 interface Props {
-  slot: ReactNode;
+  value: string;
+  onChange: (value: string) => void;
+  label?: string;
+  placeholder?: string;
+  slot?: ReactNode;
 }
 
 export const InputField: FC<Props> = (props) => {
-  const { slot } = props;
+  const { value, onChange, label, placeholder, slot } = props;
 
-  return (
-    <TextField.Root placeholder='Search the docs…'>
-      <TextField.Slot>{slot}</TextField.Slot>
-    </TextField.Root>
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value),
+    [onChange],
   );
 
-  // return (
-  //   <div className='flex flex-col gap-2'>
-  //     <label className='text-white text-xs'>Description</label>
-  //     <div className='flex items-start bg-[#3a3a3a] rounded-md px-3 py-2 gap-2'>
-  //       <FileText className='text-gray-400 mt-1' size={18} />
-  //       <textarea
-  //         placeholder='Description'
-  //         value={description}
-  //         onChange={(e) => setDescription(e.target.value)}
-  //         className='bg-transparent text-white text-sm outline-none flex-1 resize-none min-h-20'
-  //         required
-  //       />
-  //     </div>
-  //   </div>
-  // );
+  return (
+    <Column>
+      <Text size='2'>{label}</Text>
+      <TextField.Root
+        placeholder={placeholder}
+        value={value}
+        onChange={handleChange}
+      >
+        <TextField.Slot>{slot}</TextField.Slot>
+      </TextField.Root>
+    </Column>
+  );
 };

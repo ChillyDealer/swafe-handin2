@@ -1,6 +1,5 @@
 'use client';
-import { Dumbbell, FileText, Hash, Clock } from 'lucide-react';
-import { PageComponent } from '../_components/page-component';
+import { Clock, Dumbbell, FileText, Hash } from 'lucide-react';
 import { useState } from 'react';
 import { Exercise } from '../myworkouts/types';
 
