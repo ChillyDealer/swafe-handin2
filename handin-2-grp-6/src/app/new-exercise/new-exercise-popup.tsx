@@ -2,8 +2,8 @@
 import { Dumbbell, FileText, Hash, Clock } from 'lucide-react';
 import { PageComponent } from '../_components/page-component';
 import { useState } from 'react';
-import { Exercise } from '../myworkouts/types';
 import { postExercise } from '../_data/exercises-api';
+import { Exercise } from '../_types/exercise';
 
 export default function NewExercisePopup({
   workoutProgramId,
@@ -22,15 +22,11 @@ export default function NewExercisePopup({
     e.preventDefault();
     // Handle form submission
     const newExercise: Exercise = {
-      exerciseId: 0, // bliver sat i backenden?
-      groupId: '86fd6635-ad7d-463d-a22f-536ed93465ff', // idk det var den fra backenden
       name: exerciseName,
       description: description,
       sets: usingSets ? parseInt(setsOrDuration) : null,
       repetitions: parseInt(reps),
       time: usingSets ? '' : `${setsOrDuration} mins`,
-      workoutProgramId: workoutProgramId,
-      personalTrainerId: personalTrainerId,
     };
     console.log('posting exercise: ', newExercise);
     postExercise(newExercise);
