@@ -4,9 +4,7 @@ import { Client, CreateWorkoutProgram } from '../myworkouts/types';
 export type { CreateWorkoutProgram } from '../myworkouts/types';
 
 export async function getClients(): Promise<Client[]> {
-  const response = await fetchBase('Users/Clients', {
-    method: 'GET',
-  });
+  const response = await fetchBase('Users/Clients');
 
   if (!response.ok) {
     throw new Error('fail get clients');
@@ -16,8 +14,7 @@ export async function getClients(): Promise<Client[]> {
 }
 
 export async function createWorkoutProgram(body: CreateWorkoutProgram) {
-  const response = await fetchBase('WorkoutPrograms', {
-    method: 'POST',
+  const response = await fetchBase('WorkoutPrograms', 'POST', {
     body: JSON.stringify(body),
   });
 
