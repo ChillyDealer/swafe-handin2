@@ -27,3 +27,19 @@ export interface WorkoutProgram {
     personalTrainerId: number;
     clientId: number;
 }
+
+export interface Client {
+    userId: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    personalTrainerId: number;
+    accountType: string;
+}
+
+export interface CreateWorkoutProgram {
+    name: string;
+    description: string;
+    clientId: number;
+}

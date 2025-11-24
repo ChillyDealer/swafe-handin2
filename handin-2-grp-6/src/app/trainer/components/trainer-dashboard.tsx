@@ -74,7 +74,7 @@ export function TrainerDashboard({ trainerName }: TrainerDashboardProps) {
                         <p className="text-gray-300 mb-6">Manage workout plans.</p>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <button
-                                onClick={() => router.push('idk')}
+                                onClick={() => router.push('/myprograms')}
                                 className="bg-[#6b9b4c]/30 hover:bg-[#6b9b4c]/50 border border-[#6b9b4c]/50 hover:border-[#6b9b4c] rounded-xl px-6 py-6 transition-all shadow-lg hover:shadow-[#6b9b4c]/30 text-left group"
                             >
                                 <div className="flex items-center gap-4">
