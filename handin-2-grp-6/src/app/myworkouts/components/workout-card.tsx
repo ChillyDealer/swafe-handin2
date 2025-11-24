@@ -8,7 +8,7 @@ interface Props {
     workout: WorkoutProgram;
 }
 
-const FITNESS_EMOJIS = ['💪', '🏋️', '🤸', '🏃', '🚴', '🧘', '⚡', '🔥', '🎯', '⭐'];
+const FITNESS_EMOJIS = ['💪', '🏋️', '🤸', '🦾', '🗿', '⚡', '🔥', '🎯', '⭐'];
 
 export function WorkoutCard({ workout }: Props) {
     const [isModalOpen, setIsModalOpen] = useState(false);

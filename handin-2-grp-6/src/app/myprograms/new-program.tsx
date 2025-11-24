@@ -2,8 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { Client } from '../myworkouts/types';
-import { getClients, createWorkoutProgram, CreateWorkoutProgram } from '../_data/programs-api';
-import { FileText, Users, Check, ChevronDown, X } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import {
+  getClients,
+  createWorkoutProgram,
+  CreateWorkoutProgram,
+} from '../_data/programs-api';
+import { FileText, Users, Check, ChevronDown, X , ArrowLeft} from 'lucide-react';
 
 export default function NewProgram() {
   const [programName, setProgramName] = useState('');
@@ -17,12 +22,14 @@ export default function NewProgram() {
     loadClients();
   }, []);
 
+  const router = useRouter();
+
   const loadClients = async () => {
     try {
       const clientsData = await getClients();
       setClients(clientsData);
     } catch (error) {
-      console.error('Failed to fetch clients:', error);
+      console.error('failed get clients:', error);
     }
   };
 
@@ -44,7 +51,7 @@ export default function NewProgram() {
     e.preventDefault();
 
     if (selectedClients.length === 0) {
-      alert('Please select at least one client');
+      alert('select client');
       return;
     }
 
@@ -59,19 +66,26 @@ export default function NewProgram() {
       }
 
       setSuccessMessage(
-        `Program "${programName}" created for ${selectedClients.length} client(s)`
+        `"${programName}" created for ${selectedClients.length} clients`,
       );
       setProgramName('');
       setProgramDescription('');
       setSelectedClients([]);
       setTimeout(() => setSuccessMessage(null), 3000);
     } catch {
-      alert('Failed to create program');
+      alert('faiel create program');
     }
   };
 
   return (
     <div className='fixed inset-0 flex items-center justify-center bg-black overflow-hidden'>
+      <button
+        onClick={() => router.back()}
+        className='absolute top-4 left-4 text-gray-400 hover:text-white transition-colors flex items-center gap-2'
+      >
+        <ArrowLeft size={20} strokeWidth={2} />
+        <span className='text-sm'>Go back</span>
+      </button>
       <div className='w-full max-w-lg p-4'>
         <h1 className='text-white text-2xl font-bold text-center mb-6'>
           Create a new workout program
@@ -85,7 +99,6 @@ export default function NewProgram() {
         )}
 
         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-          {/* Program Name */}
           <div className='flex flex-col gap-2'>
             <label className='text-white text-xs'>Program Name</label>
             <div className='flex items-center bg-[#3a3a3a] rounded-md px-3 py-2 gap-2'>
@@ -101,7 +114,6 @@ export default function NewProgram() {
             </div>
           </div>
 
-          {/* Description */}
           <div className='flex flex-col gap-2'>
             <label className='text-white text-xs'>Description</label>
             <div className='flex items-start bg-[#3a3a3a] rounded-md px-3 py-2 gap-2'>
@@ -116,11 +128,9 @@ export default function NewProgram() {
             </div>
           </div>
 
-          {/* Client Multi-Select */}
           <div className='flex flex-col gap-2'>
             <label className='text-white text-xs'>Assign to Clients</label>
 
-            {/* Selected clients tags */}
             {selectedClients.length > 0 && (
               <div className='flex flex-wrap gap-2 mb-2'>
                 {selectedClients.map((client) => (
@@ -159,7 +169,9 @@ export default function NewProgram() {
                   </span>
                 </div>
                 <ChevronDown
-                  className={`text-gray-400 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
+                  className={`text-gray-400 transition-transform ${
+                    isDropdownOpen ? 'rotate-180' : ''
+                  }`}
                   size={18}
                 />
               </button>
@@ -173,14 +185,16 @@ export default function NewProgram() {
                   ) : (
                     clients.map((client) => {
                       const isSelected = selectedClients.some(
-                        (c) => c.userId === client.userId
+                        (c) => c.userId === client.userId,
                       );
                       return (
                         <button
                           key={client.userId}
                           type='button'
                           onClick={() => toggleClient(client)}
-                          className={`w-full flex items-center justify-between px-4 py-2 hover:bg-white/10 transition-colors ${isSelected ? 'bg-[#6b9b4c]/20' : ''}`}
+                          className={`w-full flex items-center justify-between px-4 py-2 hover:bg-white/10 transition-colors ${
+                            isSelected ? 'bg-[#6b9b4c]/20' : ''
+                          }`}
                         >
                           <div className='text-left'>
                             <div className='text-white text-sm'>
