@@ -15,19 +15,22 @@ export function TrainerDashboard({ trainerName }: TrainerDashboardProps) {
             <Navbar />
             <div className="px-8 py-16 relative">
                 <div className="max-w-7xl mx-auto relative z-10">
-                    <div className="bg-white/5 border border-white/10 rounded-3xl p-12 shadow-2xl">
-                        <div className="inline-flex items-center gap-2 bg-[#53659a]/30 border border-[#53659a]/50 rounded-full px-4 py-2 mb-6 shadow-lg shadow-[#53659a]/20">
-                            <span className="w-2 h-2 bg-[#53659a] rounded-full animate-pulse shadow-lg shadow-[#53659a]"></span>
-                            <span className="text-[#53659a] font-bold uppercase tracking-wider text-sm">{trainerName || "Trainer"}</span>
+                    <div className="bg-white/5 border border-white/10 rounded-3xl p-12 shadow-2xl relative overflow-hidden">
+                         <div className="hidden md:block absolute right-4 top-1/2 scale-x-[-1] -translate-y-1/2 text-[14rem] drop-shadow-[0_0_15px_rgba(83,101,154,0.3)]">📑</div>
+                        <div className="relative z-10">
+                            <div className="inline-flex items-center gap-2 bg-[#53659a]/30 border border-[#53659a]/50 rounded-full px-4 py-2 mb-6 shadow-lg shadow-[#53659a]/20">
+                                <span className="w-2 h-2 bg-[#53659a] rounded-full animate-pulse shadow-lg shadow-[#53659a]"></span>
+                                <span className="text-[#53659a] font-bold uppercase tracking-wider text-sm">{trainerName || "Trainer"}</span>
+                            </div>
+
+                            <h1 className="text-6xl md:text-7xl font-black text-white mb-6 tracking-tight drop-shadow-lg">
+                                Trainer
+                            </h1>
+
+                            <p className="text-gray-200 text-xl max-w-2xl leading-relaxed">
+                                See clients and manga workouts.
+                            </p>
                         </div>
-
-                        <h1 className="text-6xl md:text-7xl font-black text-white mb-6 tracking-tight drop-shadow-lg">
-                            Trainer
-                        </h1>
-
-                        <p className="text-gray-200 text-xl max-w-2xl leading-relaxed">
-                            See clients and manga workouts.
-                        </p>
                     </div>
                 </div>
             </div>
