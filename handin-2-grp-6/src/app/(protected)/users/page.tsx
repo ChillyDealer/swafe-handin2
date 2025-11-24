@@ -4,10 +4,10 @@ import Link from 'next/link';
 import { Row } from '@/app/_components/row';
 import { AuthService } from '@/app/services/auth.service';
 
+export const dynamic = 'force-dynamic';
+
 export default async function UsersPage() {
   const role = await AuthService.getRole();
-
-export const dynamic = 'force-dynamic';
 
   return (
     <Flex direction='column' className='p-8 gap-8'>
