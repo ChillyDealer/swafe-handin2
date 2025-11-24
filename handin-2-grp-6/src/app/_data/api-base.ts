@@ -3,10 +3,9 @@ import { ApiBaseUrl } from '@/app/_consts/api-consts';
 
 export async function fetchBase(path: string, init?: RequestInit) {
   const token = await AuthService.getToken();
-  console.log('🚀✍️✍️✍️ ~ fetchBase ~ token:', token);
 
   if (!token) {
-    throw new Error('🔐 NO TOKEN');
+    throw new Error('No token');
   }
 
   const baseInit: RequestInit = {

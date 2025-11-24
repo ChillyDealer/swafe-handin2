@@ -1,42 +1,42 @@
 'use client';
-import { Dumbbell, FileText, Hash, Clock, ChevronUp, ChevronDown, ArrowLeft } from 'lucide-react';
+import { Dumbbell, FileText, Hash, Clock, ChevronUp, ChevronDown, ArrowLeft, FolderOpen } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { PageComponent } from '../_components/page-component';
 import { useState } from 'react';
-import { Exercise } from '../myworkouts/types';
-import { postExercise } from '../_data/exercises-api';
+import { WorkoutProgram } from '../myworkouts/types';
+import { CreateExercise, postExercise } from '../_data/exercises-api';
+import { ProgramPickerModal } from './program-picker-modal';
 
-export default function NewExercisePopup({
-  workoutProgramId,
-  personalTrainerId,
-}: {
-  workoutProgramId: number;
-  personalTrainerId: number;
-}) {
+export default function NewExercisePopup() {
   const router = useRouter();
   const [usingSets, setUsingSets] = useState<boolean>(true);
   const [exerciseName, setExerciseName] = useState('');
   const [description, setDescription] = useState('');
   const [reps, setReps] = useState('');
   const [setsOrDuration, setSetsOrDuration] = useState('');
+  const [isPickerOpen, setIsPickerOpen] = useState(false);
+
+  const [selectedProgram, setSelectedProgram] = useState<WorkoutProgram | null>(null);
+
+  const handleProgramSelect = (program: WorkoutProgram) => {
+    setSelectedProgram(program);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // submit
-    const newExercise: Exercise = {
-      exerciseId: 0, // bliver sat i backenden?
-      groupId: '86fd6635-ad7d-463d-a22f-536ed93465ff', // idk det var den fra backenden
+
+    if (!selectedProgram) {
+      alert('select program first!');
+      return;
+    }
+
+    const body: CreateExercise = {
       name: exerciseName,
       description: description,
       sets: usingSets ? parseInt(setsOrDuration) : null,
       repetitions: parseInt(reps),
       time: usingSets ? '' : `${setsOrDuration} mins`,
-      workoutProgramId: workoutProgramId,
-      personalTrainerId: personalTrainerId,
     };
-    console.log('posting exercise: ', newExercise);
-    postExercise(newExercise);
-    // console.log({ exerciseName, description, reps, setsOrDuration, usingSets });
+    postExercise(selectedProgram.workoutProgramId, body);
   };
 
   return (
@@ -49,10 +49,20 @@ export default function NewExercisePopup({
         <span className='text-sm'>Go back</span>
       </button>
       <div className='w-full max-w-md'>
-        <h1 className='text-white text-2xl font-bold text-center mb-8'>
-          Create a New Exercise for program:
-          {/* {workoutProgramId} */}
+        <h1 className='text-white text-2xl font-bold text-center mb-4'>
+          Create a new exercise for program:
         </h1>
+
+        <button
+          type='button'
+          onClick={() => setIsPickerOpen(true)}
+          className='flex items-center justify-center gap-2 bg-[#3a3a3a] hover:bg-[#4a4a4a] text-gray-300 hover:text-white py-2 px-4 rounded-md transition-colors mb-4 w-full'
+        >
+          <FolderOpen size={16} />
+          <span className='text-sm'>
+            {selectedProgram ? selectedProgram.name : 'Select a program'}
+          </span>
+        </button>
 
         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
           <div className='flex flex-col gap-2'>
@@ -194,6 +204,12 @@ export default function NewExercisePopup({
           </button>
         </form>
       </div>
+
+      <ProgramPickerModal
+        isOpen={isPickerOpen}
+        onClose={() => setIsPickerOpen(false)}
+        onSelect={handleProgramSelect}
+      />
     </div>
   );
 }

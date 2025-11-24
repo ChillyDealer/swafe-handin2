@@ -1,13 +1,24 @@
 import { fetchBase } from './api-base';
-import { Exercise } from '../myworkouts/types';
+import { CreateExercise, WorkoutProgram } from '../myworkouts/types';
 
-export async function postExercise(exercise: Exercise) {
-  const response = await fetchBase('Exercises', {
+export type { CreateExercise } from '../myworkouts/types';
+
+export async function getTrainerWorkoutPrograms(): Promise<WorkoutProgram[]> {
+  const response = await fetchBase('WorkoutPrograms/trainer', {
+    method: 'GET',
+  });
+
+  if (!response.ok) {
+    throw new Error('fail workout fetch');
+  }
+
+  return response.json();
+}
+
+export async function postExercise(workoutProgramId: number, body: CreateExercise) {
+  const response = await fetchBase(`Exercises/Program/${workoutProgramId}`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(exercise),
+    body: JSON.stringify(body),
   });
 
   if (!response.ok) {
