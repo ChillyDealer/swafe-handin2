@@ -1,5 +1,5 @@
 'use client';
-import { Dumbbell, FileText, Hash, Clock, ChevronUp, ChevronDown, ArrowLeft, FolderOpen } from 'lucide-react';
+import { Dumbbell, FileText, Hash, Clock, ChevronUp, ChevronDown, ArrowLeft, FolderOpen, Check } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { WorkoutProgram } from '../myworkouts/types';
@@ -16,16 +16,26 @@ export default function NewExercisePopup() {
   const [isPickerOpen, setIsPickerOpen] = useState(false);
 
   const [selectedProgram, setSelectedProgram] = useState<WorkoutProgram | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const handleProgramSelect = (program: WorkoutProgram) => {
     setSelectedProgram(program);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!selectedProgram) {
       alert('select program first!');
+      return;
+    }
+
+    // dupes
+    const existingExercise = selectedProgram.exercises.find(
+      (ex) => ex.name.toLowerCase() === exerciseName.toLowerCase()
+    );
+    if (existingExercise) {
+      alert(`"${exerciseName}" is already in program "${selectedProgram.name}"`);
       return;
     }
 
@@ -36,7 +46,21 @@ export default function NewExercisePopup() {
       repetitions: parseInt(reps),
       time: usingSets ? '' : `${setsOrDuration} mins`,
     };
-    postExercise(selectedProgram.workoutProgramId, body);
+
+    try {
+      await postExercise(selectedProgram.workoutProgramId, body);
+      setSuccessMessage(`"${exerciseName}" added to ${selectedProgram.name}`);
+      // Clear form
+      setExerciseName('');
+      setDescription('');
+      setReps('');
+      setSetsOrDuration('');
+      setUsingSets(true);
+      // kill after 3 sec
+      setTimeout(() => setSuccessMessage(null), 3000);
+    } catch {
+      alert('fail create');
+    }
   };
 
   return (
@@ -52,6 +76,13 @@ export default function NewExercisePopup() {
         <h1 className='text-white text-2xl font-bold text-center mb-4'>
           Create a new exercise for program:
         </h1>
+
+        {successMessage && (
+          <div className='flex items-center gap-2 bg-[#6b9b4c] text-white px-4 py-2 rounded-md mb-4'>
+            <Check size={18} />
+            <span className='text-sm'>{successMessage}</span>
+          </div>
+        )}
 
         <button
           type='button'
