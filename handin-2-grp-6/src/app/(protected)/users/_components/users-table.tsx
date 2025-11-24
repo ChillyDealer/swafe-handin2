@@ -1,13 +1,16 @@
 ﻿import { ScrollArea, Table } from '@radix-ui/themes';
-import { getAllUsers } from '@/app/_data/users-api';
+import { getAllUsers, getClients } from '@/app/_data/users-api';
 import type { User } from '@/app/_types/user';
+import { AuthService } from '@/app/services/auth.service';
 
 export async function UsersTable() {
+  const role = await AuthService.getRole();
+
   let users: User[] = [];
   let error: string | null = null;
 
   try {
-    users = await getAllUsers();
+    users = await (role === 'Manager' ? getAllUsers : getClients)();
   } catch (err) {
     console.error('Failed to fetch users:', err);
     error = err instanceof Error ? err.message : 'Failed to fetch users';

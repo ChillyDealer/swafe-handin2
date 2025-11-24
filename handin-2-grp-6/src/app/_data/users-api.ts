@@ -11,6 +11,11 @@ export async function getAllUsers(): Promise<User[]> {
   return response.json();
 }
 
+export async function getClients(): Promise<User[]> {
+  const response = await fetchBase('users/clients');
+  return response.json();
+}
+
 export async function postUser(user: PostUserDto) {
   return await fetchBase('users', 'POST', { body: JSON.stringify(user) });
 }
