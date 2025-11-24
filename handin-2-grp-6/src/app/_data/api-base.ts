@@ -1,19 +1,24 @@
-﻿import {AuthService} from "@/app/services/auth.service";
-import {ApiBaseUrl} from "@/app/_consts/api-consts";
+﻿import { AuthService } from '@/app/services/auth.service';
+import { ApiBaseUrl } from '@/app/_consts/api-consts';
 
-export async function fetchBase(path: string, init?: RequestInit) {
-    const token = await AuthService.getToken();
+export async function fetchBase(
+  path: string,
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE' = 'GET',
+  init?: RequestInit,
+) {
+  const token = await AuthService.getToken();
 
-    if (!token) {
-        throw new Error("🔐 NO TOKEN");
-    }
+  if (!token) {
+    throw new Error('🔐 NO TOKEN');
+  }
 
-    const baseInit: RequestInit = {
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-        },
-    }
+  const baseInit: RequestInit = {
+    method,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  };
 
-    return await fetch(ApiBaseUrl + path, {...baseInit, ...init});
+  return await fetch(ApiBaseUrl + path, { ...baseInit, ...init });
 }

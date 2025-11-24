@@ -7,11 +7,25 @@ interface Props {
   onChange: (value: string) => void;
   label?: string;
   placeholder?: string;
+  type?:
+    | 'number'
+    | 'search'
+    | 'time'
+    | 'text'
+    | 'hidden'
+    | 'tel'
+    | 'url'
+    | 'email'
+    | 'date'
+    | 'datetime-local'
+    | 'month'
+    | 'password'
+    | 'week';
   slot?: ReactNode;
 }
 
 export const InputField: FC<Props> = (props) => {
-  const { value, onChange, label, placeholder, slot } = props;
+  const { value, onChange, label, placeholder, type, slot } = props;
 
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value),
@@ -19,12 +33,15 @@ export const InputField: FC<Props> = (props) => {
   );
 
   return (
-    <Column>
-      <Text size='2'>{label}</Text>
+    <Column className='w-full'>
+      <Text size='2' className='opacity-80'>
+        {label}
+      </Text>
       <TextField.Root
         placeholder={placeholder}
         value={value}
         onChange={handleChange}
+        type={type}
       >
         <TextField.Slot>{slot}</TextField.Slot>
       </TextField.Root>

@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2ba8370-2d7f-4f3c-84f4-642c44dbcd85" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(protected)/users/create/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(protected)/users/create/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/_components/input/input-field.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/_components/input/input-field.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/_data/users-api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/_data/users-api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/new-exercise/new-exercise-popup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/new-exercise/new-exercise-popup.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="d2ba8370-2d7f-4f3c-84f4-642c44dbcd85" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
