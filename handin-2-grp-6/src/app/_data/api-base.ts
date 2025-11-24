@@ -1,14 +1,19 @@
 ﻿import { AuthService } from '@/app/services/auth.service';
 import { ApiBaseUrl } from '@/app/_consts/api-consts';
 
-export async function fetchBase(path: string, init?: RequestInit) {
+export async function fetchBase(
+  path: string,
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE' = 'GET',
+  init?: RequestInit,
+) {
   const token = await AuthService.getToken();
 
   if (!token) {
-    throw new Error('No token');
+    throw new Error('🔐 NO TOKEN');
   }
 
   const baseInit: RequestInit = {
+    method,
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',

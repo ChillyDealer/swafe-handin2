@@ -1,71 +1,63 @@
-﻿import {ScrollArea, Table} from "@radix-ui/themes";
-import {getUsers} from "@/app/_data/users-api";
-import type {User} from "@/app/_types/user";
+﻿import { ScrollArea, Table } from '@radix-ui/themes';
+import { getAllUsers, getClients } from '@/app/_data/users-api';
+import type { User } from '@/app/_types/user';
+import { AuthService } from '@/app/services/auth.service';
 
 export async function UsersTable() {
-    // Fetch data directly in the component (no useState, no useEffect)
-    let users: User[] = [];
-    let error: string | null = null;
+  const role = await AuthService.getRole();
 
-    try {
-        users = await getUsers();
-    } catch (err) {
-        console.error('Failed to fetch users:', err);
-        error = err instanceof Error ? err.message : 'Failed to fetch users';
-    }
+  let users: User[] = [];
+  let error: string | null = null;
 
-    // Handle error state
-    if (error) {
-        return (
-            <div className="p-8 text-center text-red-600">
-                Error: {error}
-            </div>
-        );
-    }
+  try {
+    users = await (role === 'Manager' ? getAllUsers : getClients)();
+  } catch (err) {
+    console.error('Failed to fetch users:', err);
+    error = err instanceof Error ? err.message : 'Failed to fetch users';
+  }
 
-    // Handle empty state
-    if (users.length === 0) {
-        return (
-            <div className="p-8 text-center text-gray-500">
-                No users found
-            </div>
-        );
-    }
+  if (error) {
+    return <div className='p-8 text-center text-red-600'>Error: {error}</div>;
+  }
 
-    return (
-        <ScrollArea scrollbars="vertical">
-            <Table.Root>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
-                        <Table.ColumnHeaderCell>E-mail</Table.ColumnHeaderCell>
-                        <Table.ColumnHeaderCell>Personal trainer</Table.ColumnHeaderCell>
-                        <Table.ColumnHeaderCell>Account type</Table.ColumnHeaderCell>
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                    {users.map((user) => {
-                        const personalTrainer = users.find(
-                            (u) => u.userId === user.personalTrainerId
-                        );
+  if (users.length === 0) {
+    return <div className='p-8 text-center text-gray-500'>No users found</div>;
+  }
 
-                        return (
-                            <Table.Row key={user.userId}>
-                                <Table.Cell>
-                                    {user.userId} {user.firstName} {user.lastName}
-                                </Table.Cell>
-                                <Table.Cell>{user.email}</Table.Cell>
-                                <Table.Cell>
-                                    {personalTrainer
-                                        ? `${personalTrainer.firstName} ${personalTrainer.lastName}`
-                                        : '-'}
-                                </Table.Cell>
-                                <Table.Cell>{user.accountType}</Table.Cell>
-                            </Table.Row>
-                        );
-                    })}
-                </Table.Body>
-            </Table.Root>
-        </ScrollArea>
-    );
+  return (
+    <ScrollArea scrollbars='vertical'>
+      <Table.Root>
+        <Table.Header>
+          <Table.Row>
+            <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>E-mail</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Personal trainer</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Account type</Table.ColumnHeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {users.map((user) => {
+            const personalTrainer = users.find(
+              (u) => u.userId === user.personalTrainerId,
+            );
+
+            return (
+              <Table.Row key={user.userId}>
+                <Table.Cell>
+                  {user.userId} {user.firstName} {user.lastName}
+                </Table.Cell>
+                <Table.Cell>{user.email}</Table.Cell>
+                <Table.Cell>
+                  {personalTrainer
+                    ? `${personalTrainer.firstName} ${personalTrainer.lastName}`
+                    : '-'}
+                </Table.Cell>
+                <Table.Cell>{user.accountType}</Table.Cell>
+              </Table.Row>
+            );
+          })}
+        </Table.Body>
+      </Table.Root>
+    </ScrollArea>
+  );
 }
