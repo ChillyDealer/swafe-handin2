@@ -38,7 +38,7 @@ export function TrainerDashboard({ trainerName }: TrainerDashboardProps) {
             <div>
                 <div className="max-w-7xl mx-auto">
                     <div className="bg-white/5 border border-white/10 rounded-2xl p-8 mb-8 shadow-xl">
-                        <h2 className="text-3xl font-black text-white mb-4">Client Pages</h2>
+                        <h2 className="text-3xl font-black text-white mb-4">Client Page</h2>
                         <p className="text-gray-300 mb-6">Manage client information.</p>
                         <div className="grid grid-cols-1 gap-4">
 
