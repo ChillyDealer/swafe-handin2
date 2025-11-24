@@ -1,53 +1,108 @@
 'use client';
-import { Clock, Dumbbell, FileText, Hash } from 'lucide-react';
+import { Dumbbell, FileText, Hash, Clock, ChevronUp, ChevronDown, ArrowLeft, FolderOpen, Check } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Exercise } from '../myworkouts/types';
+import { WorkoutProgram } from '../myworkouts/types';
+import { CreateExercise, postExercise } from '../_data/exercises-api';
+import { ProgramPickerModal } from './program-picker-modal';
 
-export default function NewExercisePopup({
-  workoutProgramId,
-}: {
-  workoutProgramId: number;
-}) {
+export default function NewExercisePopup() {
+  const router = useRouter();
   const [usingSets, setUsingSets] = useState<boolean>(true);
   const [exerciseName, setExerciseName] = useState('');
   const [description, setDescription] = useState('');
   const [reps, setReps] = useState('');
   const [setsOrDuration, setSetsOrDuration] = useState('');
+  const [isPickerOpen, setIsPickerOpen] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [selectedProgram, setSelectedProgram] = useState<WorkoutProgram | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  const handleProgramSelect = (program: WorkoutProgram) => {
+    setSelectedProgram(program);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    const newExercise: Exercise = {
-      exerciseId: 0, // This would be set by the backend
-      groupId: '', // Set appropriately
+
+    if (!selectedProgram) {
+      alert('select program first!');
+      return;
+    }
+
+    // dupes
+    const existingExercise = selectedProgram.exercises.find(
+      (ex) => ex.name.toLowerCase() === exerciseName.toLowerCase()
+    );
+    if (existingExercise) {
+      alert(`"${exerciseName}" is already in program "${selectedProgram.name}"`);
+      return;
+    }
+
+    const body: CreateExercise = {
       name: exerciseName,
       description: description,
       sets: usingSets ? parseInt(setsOrDuration) : null,
       repetitions: parseInt(reps),
       time: usingSets ? '' : `${setsOrDuration} mins`,
-      workoutProgramId: 0, // Set appropriately
-      personalTrainerId: 0, // Set appropriately
     };
-    console.log({ exerciseName, description, reps, setsOrDuration, usingSets });
+
+    try {
+      await postExercise(selectedProgram.workoutProgramId, body);
+      setSuccessMessage(`"${exerciseName}" added to ${selectedProgram.name}`);
+      // Clear form
+      setExerciseName('');
+      setDescription('');
+      setReps('');
+      setSetsOrDuration('');
+      setUsingSets(true);
+      // kill after 3 sec
+      setTimeout(() => setSuccessMessage(null), 3000);
+    } catch {
+      alert('fail create');
+    }
   };
 
   return (
     <div className='fixed inset-0 flex items-center justify-center bg-black overflow-hidden'>
+      <button
+        onClick={() => router.back()}
+        className='absolute top-4 left-4 text-gray-400 hover:text-white transition-colors flex items-center gap-2'
+      >
+        <ArrowLeft size={20} strokeWidth={2} />
+        <span className='text-sm'>Go back</span>
+      </button>
       <div className='w-full max-w-md'>
-        <h1 className='text-white text-2xl font-bold text-center mb-8'>
-          Create a New Exercise for program:
-          {/* {workoutProgramId} */}
+        <h1 className='text-white text-2xl font-bold text-center mb-4'>
+          Create a new exercise for program:
         </h1>
 
+        {successMessage && (
+          <div className='flex items-center gap-2 bg-[#6b9b4c] text-white px-4 py-2 rounded-md mb-4'>
+            <Check size={18} />
+            <span className='text-sm'>{successMessage}</span>
+          </div>
+        )}
+
+        <button
+          type='button'
+          onClick={() => setIsPickerOpen(true)}
+          className='flex items-center justify-center gap-2 bg-[#3a3a3a] hover:bg-[#4a4a4a] text-gray-300 hover:text-white py-2 px-4 rounded-md transition-colors mb-4 w-full'
+        >
+          <FolderOpen size={16} />
+          <span className='text-sm'>
+            {selectedProgram ? selectedProgram.name : 'Select a program'}
+          </span>
+        </button>
+
         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-          {/* Exercise Name */}
           <div className='flex flex-col gap-2'>
             <label className='text-white text-xs'>Exercise Name</label>
             <div className='flex items-center bg-[#3a3a3a] rounded-md px-3 py-2 gap-2'>
               <Dumbbell className='text-gray-400' size={18} />
               <input
                 type='text'
-                placeholder='Exercise name'
+                placeholder='excersise'
                 value={exerciseName}
                 onChange={(e) => setExerciseName(e.target.value)}
                 className='bg-transparent text-white text-sm outline-none flex-1'
@@ -56,16 +111,15 @@ export default function NewExercisePopup({
             </div>
           </div>
 
-          {/* Description */}
           <div className='flex flex-col gap-2'>
             <label className='text-white text-xs'>Description</label>
             <div className='flex items-start bg-[#3a3a3a] rounded-md px-3 py-2 gap-2'>
               <FileText className='text-gray-400 mt-1' size={18} />
               <textarea
-                placeholder='Description'
+                placeholder='What is this exercise about...'
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className='bg-transparent text-white text-sm outline-none flex-1 resize-none min-h-20'
+                className='bg-transparent text-white text-sm outline-none flex-1 mt-1 resize-none min-h-20'
                 required
               />
             </div>
@@ -81,13 +135,29 @@ export default function NewExercisePopup({
                 placeholder='Number of reps'
                 value={reps}
                 onChange={(e) => setReps(e.target.value)}
-                className='bg-transparent text-white text-sm outline-none flex-1'
+                className='bg-transparent text-white text-sm outline-none flex-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
+                min='0'
                 required
               />
+              <div className='flex flex-col'>
+                <button
+                  type='button'
+                  onClick={() => setReps(String(Math.max(0, (parseInt(reps) || 0) + 1)))}
+                  className='text-gray-400 hover:text-[#6b9b4c] transition-colors'
+                >
+                  <ChevronUp size={18} strokeWidth={3} />
+                </button>
+                <button
+                  type='button'
+                  onClick={() => setReps(String(Math.max(0, (parseInt(reps) || 0) - 1)))}
+                  className='text-gray-400 hover:text-[#6b9b4c] transition-colors'
+                >
+                  <ChevronDown size={18} strokeWidth={3} />
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* Sets or Duration */}
           <div className='flex flex-col gap-2'>
             <label className='text-white text-xs'>
               {usingSets ? 'Sets' : 'Duration (mins)'}
@@ -105,9 +175,26 @@ export default function NewExercisePopup({
                 }
                 value={setsOrDuration}
                 onChange={(e) => setSetsOrDuration(e.target.value)}
-                className='bg-transparent text-white text-sm outline-none flex-1'
+                className='bg-transparent text-white text-sm outline-none flex-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
+                min='0'
                 required
               />
+              <div className='flex flex-col'>
+                <button
+                  type='button'
+                  onClick={() => setSetsOrDuration(String(Math.max(0, (parseInt(setsOrDuration) || 0) + 1)))}
+                  className='text-gray-400 hover:text-[#6b9b4c] transition-colors'
+                >
+                  <ChevronUp size={18} strokeWidth={3} />
+                </button>
+                <button
+                  type='button'
+                  onClick={() => setSetsOrDuration(String(Math.max(0, (parseInt(setsOrDuration) || 0) - 1)))}
+                  className='text-gray-400 hover:text-[#6b9b4c] transition-colors'
+                >
+                  <ChevronDown size={18} strokeWidth={3} />
+                </button>
+              </div>
             </div>
           </div>
 
@@ -148,6 +235,12 @@ export default function NewExercisePopup({
           </button>
         </form>
       </div>
+
+      <ProgramPickerModal
+        isOpen={isPickerOpen}
+        onClose={() => setIsPickerOpen(false)}
+        onSelect={handleProgramSelect}
+      />
     </div>
   );
 }

@@ -22,6 +22,10 @@ export default function Home() {
         router.push("/myworkouts");
         return;
       }
+      if (role === "PersonalTrainer") {
+        router.push("/trainer");
+        return;
+      }
     }
     setIsLoading(false);
   };

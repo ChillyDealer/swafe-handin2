@@ -82,32 +82,36 @@ export default function MyWorkoutsPage() {
                 
                 <div className="max-w-7xl mx-auto relative z-10">
                     {/* glass wrapper */}
-                    <div className="bg-white/5 border border-white/10 rounded-3xl p-12 shadow-2xl">
-                        <div className="inline-flex items-center gap-2 bg-[#6b9b4c]/30 border border-[#6b9b4c]/50 rounded-full px-4 py-2 mb-6 shadow-lg shadow-[#6b9b4c]/20">
-                            <span className="w-2 h-2 bg-[#6b9b4c] rounded-full animate-pulse shadow-lg shadow-[#6b9b4c]"></span>
-                            <span className="text-[#6b9b4c] font-bold uppercase tracking-wider text-sm">{userName || "User"}</span>
-                        </div>
-                        
-                        <h1 className="text-6xl md:text-7xl font-black text-white mb-6 tracking-tight drop-shadow-lg">
-                            Klar til at tæske børn? 💪
-                        </h1>
-                        
-                        <p className="text-gray-200 text-xl mb-8 max-w-2xl leading-relaxed">
-                            Personalized workout programs just for you, provided by your trainer.
-                        </p>
+                    <div className="bg-white/5 border border-white/10 rounded-3xl p-12 shadow-2xl relative overflow-hidden">
+                        <div className="hidden md:block absolute right-1/14 top-1/2 scale-x-[-1] -translate-y-1/2 text-[16rem] drop-shadow-[0_0_15px_rgba(107,155,76,0.3)]">💪</div>
 
-                        <div className="flex gap-6 flex-wrap">
-                            <div className="bg-white/10 border border-white/20 rounded-xl px-6 py-4 hover:bg-white/15 transition-all shadow-lg">
-                                <div className="text-3xl font-black">🔥</div>
-                                <div className="text-gray-300 text-sm mt-1 font-medium">Keep the heat</div>
+                        <div className="relative z-10">
+                            <div className="inline-flex items-center gap-2 bg-[#6b9b4c]/30 border border-[#6b9b4c]/50 rounded-full px-4 py-2 mb-6 shadow-lg shadow-[#6b9b4c]/20">
+                                <span className="w-2 h-2 bg-[#6b9b4c] rounded-full animate-pulse shadow-lg shadow-[#6b9b4c]"></span>
+                                <span className="text-[#6b9b4c] font-bold uppercase tracking-wider text-sm">{userName || "User"}</span>
                             </div>
-                            <div className="bg-white/10 border border-white/20 rounded-xl px-6 py-4 hover:bg-white/15 transition-all shadow-lg">
-                                <div className="text-3xl font-black">🚬</div>
-                                <div className="text-gray-300 text-sm mt-1 font-medium">500 cigarettes</div>
-                            </div>
-                            <div className="bg-white/10 border border-white/20 rounded-xl px-6 py-4 hover:bg-white/15 transition-all shadow-lg">
-                                <div className="text-3xl font-black">🎯</div>
-                                <div className="text-gray-300 text-sm mt-1 font-medium">Hit your goals</div>
+
+                            <h1 className="text-6xl md:text-7xl font-black text-white mb-6 tracking-tight drop-shadow-lg">
+                                Ready for gains?
+                            </h1>
+
+                            <p className="text-gray-200 text-xl mb-8 max-w-2xl leading-relaxed">
+                                Personalized workout programs just for you, provided by your trainer.
+                            </p>
+
+                            <div className="flex gap-6 flex-wrap">
+                                <div className="bg-white/10 border border-white/20 rounded-xl px-6 py-4 hover:bg-white/15 transition-all shadow-lg">
+                                    <div className="text-3xl font-black">🔥</div>
+                                    <div className="text-gray-300 text-sm mt-1 font-medium">Keep the heat</div>
+                                </div>
+                                <div className="bg-white/10 border border-white/20 rounded-xl px-6 py-4 hover:bg-white/15 transition-all shadow-lg">
+                                    <div className="text-3xl font-black">🚬</div>
+                                    <div className="text-gray-300 text-sm mt-1 font-medium">500 cigarettes</div>
+                                </div>
+                                <div className="bg-white/10 border border-white/20 rounded-xl px-6 py-4 hover:bg-white/15 transition-all shadow-lg">
+                                    <div className="text-3xl font-black">🎯</div>
+                                    <div className="text-gray-300 text-sm mt-1 font-medium">Hit your goals</div>
+                                </div>
                             </div>
                         </div>
                     </div>
