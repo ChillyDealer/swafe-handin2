@@ -11,7 +11,7 @@ const testUsers = [
 export function QuickLoginButtons({ onQuickLogin }: QuickLoginButtonsProps) {
     return (
         <div className="border-t border-gray-600 pt-3 mt-2">
-            <p className="text-gray-400 text-xs text-center mb-2">Quick Login (debug)</p>
+            <p className="text-gray-400 text-xs text-center mb-2">Quick Login</p>
             <div className="grid grid-cols-3 gap-1.5">
                 {testUsers.map((user) => (
                     <button

@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect } from 'react';
+import { Suspense, useEffect } from "react";
 import { useAuth } from '@/app/hooks/auth';
 import { LoginForm } from '@/app/login/components/login-form';
 import { QuickLoginButtons } from '@/app/login/components/quick-login-buttons';
 import { BackButton } from '@/app/login/components/back-button';
 
-export default function LoginPage() {
+function LoginContent() {
   const {
     email,
     password,
@@ -45,5 +45,17 @@ export default function LoginPage() {
         <QuickLoginButtons onQuickLogin={quickLogin} />
       </div>
     </div>
+    );
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={
+            <div className="fixed inset-0 flex items-center justify-center bg-black">
+                <div className="text-white">Loading...</div>
+            </div>
+        }>
+            <LoginContent />
+        </Suspense>
   );
 }

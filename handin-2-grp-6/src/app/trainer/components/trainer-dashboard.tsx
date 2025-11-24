@@ -38,21 +38,9 @@ export function TrainerDashboard({ trainerName }: TrainerDashboardProps) {
             <div>
                 <div className="max-w-7xl mx-auto">
                     <div className="bg-white/5 border border-white/10 rounded-2xl p-8 mb-8 shadow-xl">
-                        <h2 className="text-3xl font-black text-white mb-4">Client Pages</h2>
+                        <h2 className="text-3xl font-black text-white mb-4">Client Page</h2>
                         <p className="text-gray-300 mb-6">Manage client information.</p>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <button
-                                onClick={() => router.push('idk')}
-                                className="bg-[#6b9b4c]/30 hover:bg-[#6b9b4c]/50 border border-[#6b9b4c]/50 hover:border-[#6b9b4c] rounded-xl px-6 py-6 transition-all shadow-lg hover:shadow-[#6b9b4c]/30 text-left group"
-                            >
-                                <div className="flex items-center gap-4">
-                                    <div className="text-4xl">➕</div>
-                                    <div>
-                                        <h3 className="text-xl font-bold text-white group-hover:text-[#6b9b4c] transition-colors">Create Client</h3>
-                                        <p className="text-gray-300 text-sm">Add a new clients</p>
-                                    </div>
-                                </div>
-                            </button>
+                        <div className="grid grid-cols-1 gap-4">
 
                             <button
                                 onClick={() => router.push('/users')}
@@ -61,8 +49,8 @@ export function TrainerDashboard({ trainerName }: TrainerDashboardProps) {
                                 <div className="flex items-center gap-4">
                                     <div className="text-4xl">🕵️</div>
                                     <div>
-                                        <h3 className="text-xl font-bold text-white group-hover:text-[#53659a] transition-colors">View Clients</h3>
-                                        <p className="text-gray-300 text-sm">See all clients</p>
+                                        <h3 className="text-xl font-bold text-white group-hover:text-[#53659a] transition-colors">Manage Clients</h3>
+                                        <p className="text-gray-300 text-sm">See all clients and add new clients</p>
                                     </div>
                                 </div>
                             </button>
