@@ -26,6 +26,10 @@ export default function Home() {
         router.push("/trainer");
         return;
       }
+      if (role === "Manager") {
+        router.push("/users");
+        return;
+      }
     }
     setIsLoading(false);
   };

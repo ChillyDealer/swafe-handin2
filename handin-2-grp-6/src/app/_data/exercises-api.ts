@@ -26,7 +26,7 @@ export async function postExercise(
   );
 
   if (!response.ok) {
-    throw new Error('Failed to post exercise');
+    throw new Error('fail excercise post');
   }
 
   return response.json();

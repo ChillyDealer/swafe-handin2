@@ -14,8 +14,6 @@ export function useAuth() {
   const login = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
 
-    console.log('FEDE LUDER');
-
     setError('');
     setLoading(true);
 
