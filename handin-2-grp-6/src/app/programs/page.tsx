@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import { PageComponent } from '../_components/page-component';
 import { getTrainerWorkoutPrograms } from '../_data/exercises-api';
 import { WorkoutProgram } from '../myworkouts/types';
+import { Navbar } from '../_components/navbar';
+import { Column } from '../_components/column';
+import { WorkoutCard } from '../myworkouts/components/workout-card';
 
 export default function ProgramsPage() {
   const [programs, setPrograms] = useState<WorkoutProgram[]>([]);
@@ -20,12 +23,17 @@ export default function ProgramsPage() {
 
   return (
     <PageComponent>
-      <div>My programs: </div>
-      <ul>
-        {programs.map((program) => (
-          <li key={program.workoutProgramId}>{program.name}</li>
-        ))}
-      </ul>
+      <Navbar />
+      <Column className='flex flex-col items-center justify-center w-full'>
+        <h1 className='text-black text-2xl font-bold text-center mb-6'>
+          My programs:{' '}
+        </h1>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full'>
+          {programs.map((program) => (
+            <WorkoutCard key={program.workoutProgramId} workout={program} />
+          ))}
+        </div>
+      </Column>
     </PageComponent>
   );
 }
