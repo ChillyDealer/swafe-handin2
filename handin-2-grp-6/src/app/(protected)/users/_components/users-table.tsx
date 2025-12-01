@@ -43,8 +43,10 @@ export async function UsersTable() {
 
             return (
               <Table.Row key={user.userId}>
-                <Table.Cell>
-                  {user.userId} {user.firstName} {user.lastName}
+                <Table.Cell
+                  title={`${user.firstName} ${user.lastName} (id: ${user.userId})`}
+                >
+                  {user.firstName} {user.lastName}
                 </Table.Cell>
                 <Table.Cell>{user.email}</Table.Cell>
                 <Table.Cell>
